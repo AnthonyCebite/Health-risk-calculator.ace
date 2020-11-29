@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<head> 
+	
+    <meta charset="UTF-8">
+    <title>MatchmakerForTheWeb</title>
+  
+</head>
+<style>
+div.c {
+  text-indent: 10%;
+}
+</style>
+ 
+ <div style="background-color:rgb(41, 126, 129)">
+
+
+  
+  <br>
+  
+  <b>
+  <h3 style="text-align:center">
+  
+    <br>HEALTH INSURANCE RISK CALCULATOR</br> 
+   
+    
+    <img src="iheart.jpg" alt="health" width="550" height="132"> 
+    <br>
+  
+  </h3> 
+  </b>
+  </br>
+  <p style="color:rgb(252, 8, 8);">ABOUT THIS TOOL:</p>
+  <b>Note: </b> This will only calculate risk and not premiums
+  <p>The Health Insurance Risk Calculator determines the risk associated with insuring a new customer.</p><p>Your level of risk will be calculated based on your body-mass index, blood pressure, age and family history of diseases</p>
+
+  <b>Instructions...</b></P> 
+
+  <p>Please answer the following questions as it relates to you and your health. There are four questions you will be presented with, select the one that best describes you from the drop down button,</p> <p>when you are done, your total score will be calculated based on your response.<p>
+
+  <p style="color:rgb(6, 6, 117);">Enter information about youself</p>
+
+<label><b>1.Age</b></label><br>
+
+  <select id="q1">
+  <div class="c"><option value=""></option></div>
+  <option value="0">21 - 29</option>
+  <option value="10">30 - 44</option>
+  <option value="20">45 - 59</option>
+  <option value="30">60 and above</option>
+  
+  </select>
+  <br/>
+  <br/>
+  <label><b>2.&nbsp;Body Mass Index (BMI)</b></label><br>
+  <select id="q2">
+    <option value=""></option>
+    <option value="0">Less than 18.5</option>
+    <option value="0">18.5 - 24</option>
+    <option value="30">25 - 29</option>
+    <option value="70">30 and above</option>
+    
+  </select>
+  <br/>
+  <br/>
+  <label><b>3.&nbsp;Blood Pressure</b></label><br>
+
+  <select id="q3">
+    <option value=""></option>
+    <option value="0">< 120 / < 80</option>
+    <option value="15">120-129 / < 80</option>
+    <option value="30">130-139/80-89</option>
+    <option value="75">140/90 or higher</option>
+    </select>
+
+  <br/>
+  <br/>
+  <label><b>4.&nbsp;Family disease</b></label><br>
+
+  <select id="q4">
+    <option value=""></option>
+    <option value="0">none</option>
+    <option value="10">Diabetes</option>
+    <option value="10">Cancer</option>
+    <option value="10">Alzheimer's</option>
+    
+  </select>
+
+  <br /><br />
+
+
+ <button onclick="RiskCalculator()">Calculate Risk</button>
+ <input type="reset" value="Clear"></input>
+ 
+
+  <p id="Error"></p>
+  <p id="Risk"></p>
+
+<script>
+
+function RiskCalculator() {
+
+  document.getElementById("Error").innerHTML = "";
+  document.getElementById("Risk").innerHTML = "";
+
+    const STRONGEST_ANSWER = [
+      10, // question 1 Nornal
+      0, // question 2 normal
+      0, // question 3 normal
+      0, // question 4 normal
+      
+    ]
+    let question1Response = document.getElementById('q1').selectedOptions[0].value;
+    let question2Response = document.getElementById('q2').selectedOptions[0].value;
+    let question3Response = document.getElementById('q3').selectedOptions[0].value;
+    let question4Response = document.getElementById('q4').selectedOptions[0].value;
+    
+    if (question1Response == "") {
+      document.getElementById("Error").innerHTML = "Please answer question 1";
+      return;
+    }
+    if (question2Response == "") {
+      document.getElementById("Error").innerHTML = "Please answer question 2";
+      return;
+    }
+    if (question3Response == "") {
+      document.getElementById("Error").innerHTML = "Please answer question 3";
+      return;
+    }
+    if (question4Response == "") {
+      document.getElementById("Error").innerHTML = "Please answer question 4";
+      return;
+    }
+    
+print
+    let risk1 = Math.abs(question1Response-STRONGEST_ANSWER[0]);
+    let risk2 = Math.abs(question2Response-STRONGEST_ANSWER[1]);
+    let risk3 = Math.abs(question3Response-STRONGEST_ANSWER[2]);
+    let risk4 = Math.abs(question4Response-STRONGEST_ANSWER[3]);
+
+	   
+	  let totalScore = (risk1 + risk2 + risk3 + risk4);   
+    
+
+    let categories1 = "<b>You are low risk</b>"
+    let categories2 = "<b>You are Moderate risk</b>"
+    let categories3 = "<b>You are High risk</b>"
+    let categories4 = "<b>You are Uninsurable</b>"
+    let useroutput = "<b>Your score is: " + totalScore + ". </b>"
+
+    if (totalScore <= 20){
+      useroutput += categories1;
+    }
+      else if (totalScore > 21 && totalScore < 50){
+      useroutput +=categories2;
+    }    
+
+      else if (totalScore > 51 && totalScore < 75){
+      useroutput +=categories3;
+    }    
+      else {
+      useroutput +=categories4;
+    }
+    
+    document.getElementById("Risk").innerHTML = useroutput;
+
+}
+</script>
+
+
+</div>
+
+</body>
+</html>
